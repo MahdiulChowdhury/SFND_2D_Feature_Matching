@@ -15,7 +15,6 @@
 
 #include "dataStructures.h"
 #include "matching2D.hpp"
-#include "circular.h"
 
 using namespace std;
 
@@ -66,7 +65,7 @@ int main(int argc, const char *argv[])
         frame.cameraImg = imgGray;
         dataBuffer.push_back(frame);
         
-        if(dataBuffer.size() > dataBuffer)
+        if(dataBuffer.size() > dataBufferSize)
         {
             dataBuffer.erase(dataBuffer.begin());
         }
@@ -88,9 +87,14 @@ int main(int argc, const char *argv[])
         {
             detKeypointsShiTomasi(keypoints, imgGray, false);
         }
-        else
+        else if (detectorType.compare("HARRIS") == 0)
         {
-            //...
+            detKeypointsHarris(keypoints, imgGray, true);
+        }
+        
+        else 
+        {
+            detKeypointsModern(keypoints, imgGray, detectorType, true);
         }
         //// EOF STUDENT ASSIGNMENT
 
